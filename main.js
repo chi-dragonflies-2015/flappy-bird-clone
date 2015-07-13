@@ -20,6 +20,8 @@ var mainState = {
     game.physics.arcade.enable(this.bird);
     this.bird.body.gravity.y = 1000;
 
+    this.bird.anchor.setTo(-0.2, 0.5);
+
     var spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     spaceKey.onDown.add(this.jump, this);
 
@@ -45,11 +47,17 @@ var mainState = {
       this.restartGame();
     }
 
+    if (this.bird.angle < 20) {
+      this.bird.angle += 1;
+    }
+
     game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
 
   },
 
   jump: function() {
+
+    game.add.tween(this.bird).to({angle: -20}, 100).start();
 
     this.bird.body.velocity.y = -350;
 
