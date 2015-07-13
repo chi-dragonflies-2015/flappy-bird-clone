@@ -9,6 +9,8 @@ var mainState = {
     game.load.image('bird', 'assets/bird.png');
     game.load.image('pipe', 'assets/pipe.png');
 
+    game.load.audio('jump', 'assets/jump.wav');
+
   },
 
   create: function() {
@@ -39,6 +41,8 @@ var mainState = {
       strokeThickness: 5
     });
 
+    this.jumpSound = game.add.audio('jump');
+
   },
 
   update: function() {
@@ -64,6 +68,8 @@ var mainState = {
     game.add.tween(this.bird).to({angle: -20}, 100).start();
 
     this.bird.body.velocity.y = -350;
+
+    this.jumpSound.play();
 
   },
 
