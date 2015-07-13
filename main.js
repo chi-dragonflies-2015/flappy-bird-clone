@@ -6,8 +6,8 @@ var mainState = {
 
     game.stage.backgroundColor = '#44D3A8';
 
-    game.load.image('bird', 'assets/bird.png');
-    game.load.image('pipe', 'assets/pipe.png');
+    game.load.image('bord', 'assets/bord.png');
+    game.load.image('machine', 'assets/machine.png');
 
   },
 
@@ -15,17 +15,17 @@ var mainState = {
 
     game.physics.startSystem(Phaser.Physics.ARCADE);
 
-    this.bird = this.game.add.sprite(100, 245, 'bird');
+    this.bord = this.game.add.sprite(100, 245, 'bord');
 
-    game.physics.arcade.enable(this.bird);
-    this.bird.body.gravity.y = 1000;
+    game.physics.arcade.enable(this.bord);
+    this.bord.body.gravity.y = 1000;
 
     var spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     spaceKey.onDown.add(this.jump, this);
 
     this.pipes = game.add.group();
     this.pipes.enableBody = true;
-    this.pipes.createMultiple(20, 'pipe');
+    this.pipes.createMultiple(20, 'machine');
 
     this.timer = game.time.events.loop(1500, this.addRowOfPipes, this);
 
@@ -41,30 +41,30 @@ var mainState = {
 
   update: function() {
 
-    if (this.bird.inWorld == false) {
+    if (this.bord.inWorld == false) {
       this.restartGame();
     }
 
-    game.physics.arcade.overlap(this.bird, this.pipes, this.restartGame, null, this);
+    game.physics.arcade.overlap(this.bord, this.pipes, this.restartGame, null, this);
 
   },
 
   jump: function() {
 
-    this.bird.body.velocity.y = -350;
+    this.bord.body.velocity.y = -350;
 
   },
 
   addOnePipe: function(x,y) {
 
-    var pipe = this.pipes.getFirstDead();
+    var machine = this.pipes.getFirstDead();
 
-    pipe.reset(x,y);
+    machine.reset(x,y);
 
-    pipe.body.velocity.x = -200;
+    machine.body.velocity.x = -200;
 
-    pipe.checkWorldBounds = true;
-    pipe.outOfBoundsKill = true;
+    machine.checkWorldBounds = true;
+    machine.outOfBoundsKill = true;
 
   },
 
