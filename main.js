@@ -50,12 +50,14 @@ var mainState = {
     if (this.bord.angle < 20) {
       this.bord.angle += 1;
     }
-
-    game.physics.arcade.overlap(this.bord, this.pipes, this.restartGame, null, this);
+    game.physics.arcade.overlap(this.bord, this.pipes, this.hitPipe, null, this);
 
   },
 
   jump: function() {
+    if (this.bord.alive == false) {
+      return;
+    }
 
     game.add.tween(this.bord).to({angle: -20}, 100).start();
 
@@ -88,6 +90,31 @@ var mainState = {
 
     this.score += 1;
     this.labelScore.text = this.score;
+
+  },
+
+  hitPipe: function() {
+
+    if (this.bord.alive == false) {
+      return;
+    }
+
+    this.bord.alive = false;
+
+    game.time.events.remove(this.timer);
+
+    this.pipes.forEachAlive(function(p) {
+      p.body.velocity.x = 0;
+    });
+
+    this.failMsg = game.add.text(this.bord.x+60, this.bord.y-20, 'SHIT', {
+      font: "30px Impact",
+      fill: "#ffffff",
+      stroke: "#000000",
+      strokeThickness: 5
+    });
+
+    game.add.tween(this.failMsg).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
 
   },
 
