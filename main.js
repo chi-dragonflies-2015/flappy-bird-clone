@@ -20,6 +20,8 @@ var mainState = {
     game.physics.arcade.enable(this.bord);
     this.bord.body.gravity.y = 1000;
 
+    this.bord.anchor.setTo(-0.2, 0.5);
+
     var spaceKey = this.game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
     spaceKey.onDown.add(this.jump, this);
 
@@ -45,11 +47,17 @@ var mainState = {
       this.restartGame();
     }
 
+    if (this.bord.angle < 20) {
+      this.bord.angle += 1;
+    }
+
     game.physics.arcade.overlap(this.bord, this.pipes, this.restartGame, null, this);
 
   },
 
   jump: function() {
+
+    game.add.tween(this.bord).to({angle: -20}, 100).start();
 
     this.bord.body.velocity.y = -350;
 
