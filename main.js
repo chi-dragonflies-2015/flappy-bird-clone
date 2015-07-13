@@ -9,6 +9,8 @@ var mainState = {
     game.load.image('bord', 'assets/bord.png');
     game.load.image('machine', 'assets/machine.png');
 
+    game.load.audio('jump', 'assets/jump.wav');
+
   },
 
   create: function() {
@@ -39,6 +41,8 @@ var mainState = {
       strokeThickness: 5
     });
 
+    this.jumpSound = game.add.audio('jump');
+
   },
 
   update: function() {
@@ -62,6 +66,8 @@ var mainState = {
     game.add.tween(this.bord).to({angle: -20}, 100).start();
 
     this.bord.body.velocity.y = -350;
+
+    this.jumpSound.play();
 
   },
 
