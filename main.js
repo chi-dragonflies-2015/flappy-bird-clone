@@ -120,6 +120,7 @@ var mainState = {
       strokeThickness: 5
     });
 
+    this.add.tween(this.failMsg).to({y: this.bord.y-50}, 500, Phaser.Easing.Linear.None, true);
     game.add.tween(this.failMsg).to({alpha: 0}, 500, Phaser.Easing.Linear.None, true);
 
   },
